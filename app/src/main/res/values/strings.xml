@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">taxi</string>
+    <string name="str_title">联盟打车</string>
+
+    <string name="str_record">我的记录</string>
+    <string name="str_min_evaluate">我的评价</string>
+
+    <string name="str_add_motorman_city">城市</string>
+    <string name="str_add_motorman_licence_plate">车牌</string>
+    <string name="str_add_motorman_vehicle_model">车型</string>
+    <string name="str_add_motorman_owner_name">车主姓名</string>
+    <string name="str_add_motorman_record_date">车辆注册日期</string>
+    <string name="str_add_motorman_driver_name">司机姓名</string>
+    <string name="str_add_motorman_IDCard">身份证</string>
+    <string name="str_add_motorman_phone">司机电话</string>
+    <string name="str_add_motorman_date">初次领取驾照日期</string>
+    <string name="str_add_motorman_vehicle_information">请准确填写车辆信息</string>
+    <string name="str_add_motorman_personal_details">请准确填写个人信息</string>
+    <string name="str_add_motorman_file">驾驶证照片</string>
+    <string name="str_add_motorman_finish">完成</string>
+
+    <string name="str_start_position">你现在在哪</string>
+    <string name="str_end_position">你要去哪里</string>
+    <string name="str_confirm_the_taxi">确认呼车</string>
+    <string name="str_evaluate">评价</string>
+    <string name="str_mileage">里程（公里）</string>
+    <string name="str_total_money">总金额（元）</string>
+
+
+    <string name="str_progress_audit"><u>查看审核进度</u></string>
+
+
+    <string-array name="city_abbreviation">
+        <item>京</item>
+        <item>津</item>
+        <item>冀</item>
+        <item>鲁</item>
+        <item>晋</item>
+        <item>蒙</item>
+        <item>辽</item>
+        <item>吉</item>
+        <item>黑</item>
+        <item>沪</item>
+        <item>苏</item>
+        <item>浙</item>
+        <item>皖</item>
+        <item>闽</item>
+        <item>赣</item>
+        <item>豫</item>
+        <item>鄂</item>
+        <item>湘</item>
+        <item>粤</item>
+        <item>桂</item>
+        <item>渝</item>
+        <item>川</item>
+        <item>贵</item>
+        <item>云</item>
+        <item>藏</item>
+        <item>陕</item>
+        <item>甘</item>
+        <item>青</item>
+        <item>琼</item>
+        <item>新</item>
+        <item>港</item>
+        <item>澳</item>
+        <item>台</item>
+        <item>宁</item>
+    </string-array>
+</resources>

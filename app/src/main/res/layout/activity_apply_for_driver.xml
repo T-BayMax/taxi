@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_custom_toolbar" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/border_4"
+        android:background="@color/aam_item_border"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/border_168"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/apply_for_driver_log"/>
+        <TextView
+            android:id="@+id/tv_apply_driver"
+            android:layout_marginTop="@dimen/border_140"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_36"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:background="@mipmap/settle_accounts"
+            android:text="申请成为司机"/>
+        <TextView
+            android:id="@+id/tv_progress_audit"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/border_30"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_28"
+            android:textColor="@color/color_b0"
+            android:padding="@dimen/border_10"
+            android:text="@string/str_progress_audit"/>
+    </LinearLayout>
+</LinearLayout>

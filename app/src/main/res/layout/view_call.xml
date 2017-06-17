@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/border_154"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="@dimen/border_130"
+        android:layout_height="@dimen/border_130"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/border_20"
+        android:layout_marginStart="@dimen/border_20"
+        android:layout_marginTop="@dimen/border_10"
+        android:src="@mipmap/amap_man" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/iv_icon"
+        android:layout_marginLeft="@dimen/border_30"
+        android:layout_marginStart="@dimen/border_30"
+        android:layout_marginTop="@dimen/border_20"
+        android:layout_toEndOf="@+id/iv_icon"
+        android:layout_toRightOf="@+id/iv_icon"
+        app:srcCompat="@mipmap/grab_single_location" />
+
+    <TextView
+        android:id="@+id/tv_stat_adders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView2"
+        android:layout_marginLeft="@dimen/border_30"
+        android:layout_marginStart="@dimen/border_30"
+        android:layout_toEndOf="@+id/imageView2"
+        android:layout_toRightOf="@+id/imageView2"
+        android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView2"
+        android:layout_marginLeft="@dimen/border_30"
+        android:layout_marginStart="@dimen/border_30"
+        android:layout_marginTop="@dimen/border_20"
+        android:layout_toEndOf="@+id/iv_icon"
+        android:layout_toRightOf="@+id/iv_icon"
+        app:srcCompat="@mipmap/grab_single_location" />
+
+    <TextView
+        android:id="@+id/tv_end_adders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageView3"
+        android:layout_marginLeft="@dimen/border_30"
+        android:layout_marginStart="@dimen/border_30"
+        android:layout_toEndOf="@+id/imageView3"
+        android:layout_toRightOf="@+id/imageView3"
+        android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/iv_call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/border_38"
+        android:layout_marginRight="@dimen/border_38"
+        android:src="@mipmap/phone" />
+</RelativeLayout>

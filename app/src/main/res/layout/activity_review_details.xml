@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_custom_toolbar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/border_2"
+        android:background="@color/aam_item_border" />
+
+    <RelativeLayout
+        android:id="@+id/rl_review"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_present"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="@dimen/border_20"
+            android:layout_marginStart="@dimen/border_20"
+            android:layout_marginTop="@dimen/border_48"
+            app:srcCompat="@mipmap/standing_progress" />
+
+        <View
+            android:id="@+id/v_present"
+            android:layout_width="@dimen/border_2"
+            android:layout_height="@dimen/border_140"
+            android:layout_alignLeft="@+id/iv_present"
+            android:layout_alignStart="@+id/iv_present"
+            android:layout_below="@+id/iv_present"
+            android:background="@color/color_10"
+            android:layout_marginLeft="@dimen/border_30"
+            android:layout_marginStart="@dimen/border_30" />
+
+        <ImageView
+            android:id="@+id/iv_audit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/v_present"
+            app:srcCompat="@mipmap/outstanding_progress"
+            android:layout_marginLeft="@dimen/border_20"
+            android:layout_marginStart="@dimen/border_20"/>
+
+        <View
+            android:id="@+id/v_audit"
+            android:layout_width="@dimen/border_2"
+            android:layout_height="@dimen/border_140"
+            android:layout_alignLeft="@+id/iv_audit"
+            android:layout_alignStart="@+id/iv_audit"
+            android:layout_below="@+id/iv_audit"
+            android:background="@color/aam_item_border"
+            android:layout_marginLeft="@dimen/border_30"
+            android:layout_marginStart="@dimen/border_30" />
+        <ImageView
+            android:id="@+id/iv_audit_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/outstanding_progress"
+            android:layout_below="@+id/v_audit"
+            android:layout_alignLeft="@+id/iv_audit"
+            android:layout_alignStart="@+id/iv_audit" />
+
+        <TextView
+            android:id="@+id/tv_present"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/border_60"
+            android:layout_marginLeft="@dimen/border_30"
+            android:layout_marginStart="@dimen/border_30"
+            android:textSize="@dimen/font_36"
+            android:textColor="@color/color_10"
+            android:layout_toEndOf="@+id/iv_present"
+            android:layout_toRightOf="@+id/iv_present"
+            android:text="申请已提交" />
+
+        <TextView
+            android:id="@+id/tv_present_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_present"
+            android:layout_alignStart="@+id/tv_present"
+            android:layout_marginTop="@dimen/border_18"
+            android:textSize="@dimen/font_30"
+            android:textColor="@color/color_66"
+            android:layout_below="@+id/tv_present"
+            android:text="你的司机申请表已经成功提交\n2017-06-03 18:06:12" />
+
+        <TextView
+            android:id="@+id/tv_audit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/iv_audit"
+            android:layout_toEndOf="@+id/iv_audit"
+            android:layout_toRightOf="@+id/iv_audit"
+            android:layout_marginLeft="@dimen/border_30"
+            android:layout_marginStart="@dimen/border_30"
+            android:layout_marginTop="@dimen/border_10"
+            android:textSize="@dimen/font_36"
+            android:textColor="@color/color_c0"
+            android:text="申请审核中" />
+
+        <TextView
+            android:id="@+id/tv_audit_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_audit"
+            android:layout_alignStart="@+id/tv_audit"
+            android:layout_marginTop="@dimen/border_18"
+            android:textSize="@dimen/font_30"
+            android:textColor="@color/color_c0"
+            android:layout_below="@+id/tv_audit"
+            android:text="你的申请表已收到，社群会尽快完成审核，请耐心等待" />
+        <TextView
+            android:id="@+id/tv_audit_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/iv_audit_result"
+            android:layout_toEndOf="@+id/iv_audit_result"
+            android:layout_toRightOf="@+id/iv_audit_result"
+            android:layout_marginLeft="@dimen/border_30"
+            android:layout_marginStart="@dimen/border_30"
+            android:layout_marginTop="@dimen/border_10"
+            android:textSize="@dimen/font_36"
+            android:textColor="@color/color_c0"
+            android:text="审核结果" />
+
+        <TextView
+            android:id="@+id/tv_audit_result_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_audit_result"
+            android:layout_alignStart="@+id/tv_audit_result"
+            android:layout_marginTop="@dimen/border_18"
+            android:textSize="@dimen/font_30"
+            android:textColor="@color/color_66"
+            android:layout_below="@+id/tv_audit_result" />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/aam_item_border"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_custom_toolbar" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/border_2"
+        android:background="@color/aam_item_border" />
+
+    <include layout="@layout/view_call" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/border_20">
+
+        <TextView
+            android:id="@+id/tv_settle_accounts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@mipmap/settle_accounts"
+            android:gravity="center"
+            android:text="发起收款"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_34" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/border_400"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/border_10"
+            android:background="@drawable/collection_oval"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/border_50"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/border_50"
+                    android:text="金额"
+                    android:textColor="@color/color_33"
+                    android:textSize="@dimen/font_34" />
+
+                <TextView
+                    android:id="@+id/tv_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/border_50"
+                    android:text="50"
+                    android:textColor="@color/color_f7"
+                    android:textSize="@dimen/border_70" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="元"
+                    android:textColor="@color/color_33"
+                    android:textSize="@dimen/font_34" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_kilometre_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:textSize="@dimen/font_34"
+                    android:textColor="@color/color_66"
+                    android:lines="1"
+                    android:layout_marginLeft="@dimen/border_40"
+                    android:text="里程\t\t5.3公里"/>
+
+                <TextView
+                    android:id="@+id/tv_cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:textColor="@color/color_f7"
+                    android:textSize="@dimen/font_34"
+                    android:layout_marginRight="@dimen/border_60"
+                    android:text="10元" />
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/border_4"
+                    android:layout_marginTop="@dimen/border_16"
+                    android:background="@color/aam_item_border"
+                    android:layout_toStartOf="@+id/tv_cost"
+                    android:layout_toLeftOf="@+id/tv_cost"
+                    android:layout_toRightOf="@+id/tv_kilometre_total"
+                    android:layout_marginRight="@dimen/border_30"
+                    android:layout_marginLeft="@dimen/border_30"
+                    android:layout_toEndOf="@+id/tv_kilometre_total" />
+
+                <TextView
+                    android:id="@+id/tv_surpass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@id/tv_kilometre_total"
+                    android:textSize="@dimen/font_34"
+                    android:textColor="@color/color_66"
+                    android:lines="1"
+                    android:layout_marginTop="@dimen/border_28"
+                    android:layout_marginLeft="@dimen/border_40"
+                    android:text="超里程\t\t0.3公里"/>
+
+                <TextView
+                    android:id="@+id/tv_surpass_cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/tv_cost"
+                    android:textColor="@color/color_f7"
+                    android:textSize="@dimen/font_34"
+                    android:layout_marginTop="@dimen/border_28"
+                    android:layout_marginRight="@dimen/border_60"
+                    android:text="10元" />
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/textView11"
+                    android:layout_height="@dimen/border_4"
+                    android:layout_marginTop="@dimen/border_64"
+                    android:background="@color/aam_item_border"
+                    android:layout_toStartOf="@+id/tv_surpass_cost"
+                    android:layout_toLeftOf="@+id/tv_surpass_cost"
+                    android:layout_toRightOf="@+id/tv_surpass"
+                    android:layout_marginRight="@dimen/border_30"
+                    android:layout_marginLeft="@dimen/border_30"
+                    android:layout_toEndOf="@+id/tv_surpass" />
+
+                <TextView
+                    android:id="@+id/tv_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@id/tv_surpass"
+                    android:textSize="@dimen/font_34"
+                    android:textColor="@color/color_66"
+                    android:lines="1"
+                    android:layout_marginTop="@dimen/border_28"
+                    android:layout_marginLeft="@dimen/border_40"
+                    android:text="时长\t\t50分钟"/>
+
+                <TextView
+                    android:id="@+id/tv_duration_cost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/tv_surpass_cost"
+                    android:textColor="@color/color_f7"
+                    android:textSize="@dimen/font_34"
+                    android:layout_marginTop="@dimen/border_28"
+                    android:layout_marginRight="@dimen/border_60"
+                    android:text="10元" />
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/textView14"
+                    android:layout_height="@dimen/border_4"
+                    android:layout_marginTop="@dimen/border_64"
+                    android:background="@color/aam_item_border"
+                    android:layout_toStartOf="@+id/tv_duration_cost"
+                    android:layout_toLeftOf="@+id/tv_duration_cost"
+                    android:layout_toRightOf="@+id/tv_duration"
+                    android:layout_marginRight="@dimen/border_30"
+                    android:layout_marginLeft="@dimen/border_30"
+                    android:layout_toEndOf="@+id/tv_duration" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

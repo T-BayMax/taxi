@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/border_20">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/white"
+        android:clickable="true"
+        android:text="定位城市"
+        android:textSize="@dimen/font_32" />
+
+    <TextView
+        android:id="@+id/current_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/cp_ic_locate"
+        android:drawablePadding="@dimen/border_14"
+        android:gravity="center_vertical"
+        android:padding="@dimen/border_20"
+        android:text="定位中..."
+        android:textColor="@color/color_33"
+        android:textSize="@dimen/font_32" />
+</LinearLayout>

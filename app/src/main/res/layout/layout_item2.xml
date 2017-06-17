@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_hot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:padding="@dimen/border_20"
+        android:textSize="@dimen/font_30"
+        android:textColor="@color/color_66"
+        android:background="@color/aam_item_border"
+        android:text="热门城市"/>
+
+    <com.ike.sq.taxi.view.WrapHeightGridView
+        android:id="@+id/hot_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_column="1"
+        android:layout_row="3"
+        android:horizontalSpacing="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp"/>
+
+</LinearLayout>
