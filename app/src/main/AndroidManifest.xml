@@ -15,7 +15,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-   <!-- 允许操作文件-->
+    <!-- 允许操作文件-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -26,12 +26,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"><meta-data
-        android:name="com.amap.api.v2.apikey"
-        android:value="a1dc8d4964acc9a715e42e108be6b786" />
+        android:theme="@style/AppTheme">
+        <!--高德-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="a1dc8d4964acc9a715e42e108be6b786" />
+       <!-- 友盟-->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="594893a0310c93760a00065f">
+        </meta-data>
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="699f62ca6e04c9532182899537adab10">
+        </meta-data>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activity.DriverMainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -40,8 +51,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.AddMotormanActivity"/>
-        <activity android:name=".ui.activity.ReviewDetailsAcitivy"/>
+        <activity android:name=".ui.activity.AddMotormanActivity" />
+        <activity android:name=".ui.activity.ReviewDetailsAcitivy" />
         <activity android:name=".ui.activity.SelectCityActivity" />
         <activity android:name=".ui.activity.VehiclesChoiceActivity" />
 

@@ -30,6 +30,11 @@ public class UserMainPresenter extends BasePersenter<IUserMainView> implements O
     }
 
     @Override
+    public void haveOrder() {
+        mView.haveOrderCallBack();
+    }
+
+    @Override
     public void positionInput(String data) {
         mView.positionInputView(data);
     }

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.andview.refreshview.recyclerview.BaseRecyclerAdapter;
 import com.ike.sq.taxi.R;
+import com.ike.sq.taxi.bean.AroundOrder;
 
 import java.util.List;
 
@@ -20,14 +21,14 @@ import java.util.List;
 
 public class TakeTaxiRecordAdapter extends BaseRecyclerAdapter<TakeTaxiRecordAdapter.SimpleAdapterViewHolder> implements View.OnClickListener {
 
-    private List list;
+    private List<AroundOrder> list;
     private Context context;
     private int position;
 
     private OnItemClickListener onItemClickListener;
 
 
-    public TakeTaxiRecordAdapter(List list, Context context) {
+    public TakeTaxiRecordAdapter(List<AroundOrder> list, Context context) {
         this.context = context;
         this.list = list;
     }

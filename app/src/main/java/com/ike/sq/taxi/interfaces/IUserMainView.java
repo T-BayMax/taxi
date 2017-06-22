@@ -10,5 +10,7 @@ public interface IUserMainView extends BaseView {
 
     void createOrderCallBack(String data);
 
+    void haveOrderCallBack();
+
     void positionInputView(String data);
 }

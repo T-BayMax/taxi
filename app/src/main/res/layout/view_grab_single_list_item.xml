@@ -53,16 +53,19 @@
 
     <TextView
         android:id="@+id/tv_place"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/textView6"
         android:layout_marginLeft="@dimen/border_10"
         android:layout_marginStart="@dimen/border_10"
         android:layout_toEndOf="@+id/textView6"
+        android:layout_toLeftOf="@+id/tv_grab_single"
         android:layout_toRightOf="@+id/textView6"
+        android:layout_toStartOf="@+id/tv_grab_single"
         android:text="TextView"
         android:textColor="@color/color_66"
         android:textSize="@dimen/font_32" />
+
     <TextView
         android:id="@+id/tv_grab_single"
         android:layout_width="wrap_content"

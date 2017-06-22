@@ -57,6 +57,7 @@ public class CoreErrorConstants {
         errors.put(1037, "公益活动报名失败");
         errors.put(1038, "上传视频文件不符合");
         errors.put(1038, "还有订单正在使用");
+        errors.put(1043, "还有订单正在使用");
 
     }
 }

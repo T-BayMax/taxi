@@ -132,22 +132,25 @@
                 android:background="@android:color/black"
                 android:alpha="0.5"
                 android:gravity="center"
+                android:paddingRight="@dimen/border_20"
                 android:layout_marginLeft="@dimen/border_80">
                 <TextView
                     android:id="@+id/tv_reminder"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/border_80"
+                    android:layout_weight="4"
+                    android:paddingLeft="@dimen/border_50"
                     android:text="dsadewwg"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/font_28" />
                 <TextView
                     android:id="@+id/tv_evaluate"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:layout_marginLeft="@dimen/border_20"
+                    android:alpha="1"
                     android:background="@mipmap/evaluate"
                     android:text="@string/str_evaluate"
                     android:textColor="@android:color/white"/>

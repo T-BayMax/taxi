@@ -82,4 +82,5 @@ dependencies {
     compile 'com.amap.api:navi-3dmap:latest.integration'
     compile 'com.amap.api:search:latest.integration'
     compile 'com.amap.api:location:latest.integration'
+    compile project(':PushSDK')
 }

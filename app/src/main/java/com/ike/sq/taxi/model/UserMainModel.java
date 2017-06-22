@@ -42,6 +42,9 @@ public class UserMainModel {
                     case 200:
                         listener.onCreateOrderCallBack("呼叫成功，等待司机接单");
                         break;
+                    case 1043:
+                        listener.haveOrder();
+                        break;
                     default:
                         listener.showError(CoreErrorConstants.errors.get(code.getCode()));
                         break;

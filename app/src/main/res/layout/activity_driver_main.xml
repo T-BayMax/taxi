@@ -23,7 +23,7 @@
             android:id="@+id/map"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-<!--
+
         <RelativeLayout
             android:id="@+id/rl_grab_single"
             android:layout_width="match_parent"
@@ -65,7 +65,7 @@
                     android:background="@android:color/white"
                     android:scrollbars="vertical" />
             </com.andview.refreshview.XRefreshView>
-        </RelativeLayout>-->
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/ll_depart"

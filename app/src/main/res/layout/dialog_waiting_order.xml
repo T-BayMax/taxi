@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:gravity="center">
+    android:background="@android:color/white">
     <LinearLayout
         android:layout_width="match_parent"
         android:gravity="right"
         android:layout_height="wrap_content">
         <ImageView
+            android:id="@+id/iv_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/border_10"
@@ -25,8 +25,9 @@
         app:SpinKit_Color="@color/color_66"
         android:layout_marginBottom="@dimen/border_20"/>
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:textSize="@dimen/font_28"
         android:textColor="@color/color_66"
         android:text="等待附近司机接单，请耐心等待"/>

@@ -1,6 +1,7 @@
 package com.ike.sq.taxi;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -68,6 +69,7 @@ import com.ike.sq.taxi.ui.activity.SelectCityActivity;
 import com.ike.sq.taxi.utils.AMapUtil;
 import com.ike.sq.taxi.utils.DisplayUtils;
 import com.ike.sq.taxi.utils.T;
+import com.umeng.message.entity.UMessage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -124,6 +126,7 @@ public class MainActivity extends BaseMvpActivity<IUserMainView, UserMainPresent
     private DriveRouteResult mDriveRouteResult;
     private int mode = RouteSearch.DrivingMultiStrategy;
     private Marker locationMarker;
+    private MyLocationStyle myLocationStyle;
 
     private LatLonPoint start_latPoint;//开始位置信息
 
@@ -133,11 +136,11 @@ public class MainActivity extends BaseMvpActivity<IUserMainView, UserMainPresent
     /*private boolean isDriver;
     private boolean isSelect;
     private boolean isConfirm;*/
-    private int status;//记录当前状态 0初始状态，1选择地址，2确认呼车
+    private int status;//记录当前状态 0初始状态，1选择地址，2确认呼车,3等待接单，4等待司机，5正在前往，6到达目的地
     private String address;
     private float kilometre;//公里数
     private int taxiCost;//大约多少钱
-    private String userId = "110";
+    private String userId = "13824692192";
 
     private AlertDialog dialog;
     private AlertDialog haveOrderDialog;
@@ -154,15 +157,47 @@ public class MainActivity extends BaseMvpActivity<IUserMainView, UserMainPresent
         map.onCreate(savedInstanceState);// 此方法必须重写
         iniView();
         iniMapData();
-        iniClick();
+        //iniClick();
+        // haveOrder();
+        App.activityMap.put("MainActivity", MainActivity.this);
+        App.setOnMsgListener(new App.OnMsgListener() {
+            @Override
+            public void onMsg(final UMessage msg) {
+                T.showLong(MainActivity.this, msg.title);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        switch (msg.title) {
+                            case "1":
+                                haveOrder();//司机接单
+                                break;
+                            case "2":
+                                overTaking();//正在前往目的地
+                                break;
+
+                            case "3":
+                                overDestination();//到达目的地
+                                break;
+                            case "4":
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
+
+            }
+
+            @Override
+            public void onDriverMsg(UMessage msg) {
+
+            }
+        });
+
     }
 
     private void iniView() {
-        /*if (isDriver) {
-            View driverView = LayoutInflater.from(MainActivity.this).inflate(R.layout.view_depart_driver, null);
-            tvDriver = (TextView) driverView.findViewById(R.id.tv_driver);
-            llDepart.addView(driverView);
-        } else {*/
+
         View passengerView = LayoutInflater.from(MainActivity.this).inflate(R.layout.view_passenger, null);
         etStartPosition = (EditText) passengerView.findViewById(R.id.et_start_position);
         etEndPosition = (EditText) passengerView.findViewById(R.id.et_end_position);
@@ -210,19 +245,21 @@ public class MainActivity extends BaseMvpActivity<IUserMainView, UserMainPresent
             // 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
             aMap.setMyLocationEnabled(true);
             // 设置定位的类型为定位模式，有定位、跟随或地图根据面向方向旋转几种
-            MyLocationStyle myLocationStyle = new MyLocationStyle();
+            myLocationStyle = new MyLocationStyle();
             myLocationStyle.strokeWidth(1);
             myLocationStyle.strokeColor(Color.argb(0, 0, 0, 0));// 设置圆形的边框颜色
             myLocationStyle.radiusFillColor(Color.argb(0, 0, 0, 0));// 设置圆形的填充颜色
             //myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE);
             aMap.getUiSettings().setMyLocationButtonEnabled(false);// 设置默认定位按钮是否显示
-            // 定位、且将视角移动到地图中心点，定位点依照设备方向旋转，  并且会跟随设备移动。
-            myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);
+            //连续定位、蓝点不会移动到地图中心点，并且蓝点会跟随设备移动。
+            myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE);
+            myLocationStyle.interval(5000);
             aMap.setMyLocationStyle(myLocationStyle);
             aMap.setTrafficEnabled(true);// 显示实时交通状况
             //地图模式可选类型：MAP_TYPE_NORMAL,MAP_TYPE_SATELLITE,MAP_TYPE_NIGHT
             aMap.setMapType(AMap.MAP_TYPE_NORMAL);
 
+            //aMap.setMyLocationStyle(myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW_NO_CENTER));
         }
 
         routeSearch = new RouteSearch(this);
@@ -233,7 +270,7 @@ public class MainActivity extends BaseMvpActivity<IUserMainView, UserMainPresent
         aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                if (status == 2) {
+                if (status > 1) {
                     return;
                 }
                 aMap.clear();
@@ -280,11 +317,7 @@ public class MainActivity extends BaseMvpActivity<IUserMainView, UserMainPresent
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.lt_main_title_left:
-                if (status == 2) {
-                    back();
-                } else {
-                    MainActivity.this.finish();
-                }
+                keyBack();
                 break;
             case R.id.lt_main_title_right:
                 initPopupWindow();
@@ -421,46 +454,6 @@ public class MainActivity extends BaseMvpActivity<IUserMainView, UserMainPresent
         // }
     }
 
-
-    /**
-     * 方法必须重写
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-        map.onResume();
-    }
-
-    /**
-     * 方法必须重写
-     */
-    @Override
-    protected void onPause() {
-        super.onPause();
-        map.onPause();
-    }
-
-    /**
-     * 方法必须重写
-     */
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        map.onSaveInstanceState(outState);
-    }
-
-    /**
-     * 方法必须重写
-     */
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        map.onDestroy();
-        if (null != mlocationClient) {
-            mlocationClient.onDestroy();
-        }
-    }
-
     @Override
     public UserMainPresenter initPresenter() {
         return new UserMainPresenter();
@@ -489,8 +482,9 @@ public class MainActivity extends BaseMvpActivity<IUserMainView, UserMainPresent
                         currentInfo.put(data[0], data[1]);
                 }
                 city = currentInfo.get("city");
-
                 address = currentInfo.get("address");
+                if (status == 3)
+                    positionInput();
                 Log.e("amap", "定位信息， code: " + errorCode + " errorInfo: " + errorInfo + " locationType: " + locationType);
             } else {
                 Log.e("amap", "定位信息， bundle is null ");
@@ -565,7 +559,7 @@ public class MainActivity extends BaseMvpActivity<IUserMainView, UserMainPresent
                         taxiCost = (int) mDriveRouteResult.getTaxiCost();
                         tv_price.setText("约" + taxiCost + "元");
                     }
-
+                    aMap.setMyLocationStyle(myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_FOLLOW_NO_CENTER));
                 } else if (result != null && result.getPaths() == null) {
                     T.showShort(MainActivity.this, "对不起，没有搜索到相关数据！");
                 }
@@ -598,26 +592,40 @@ public class MainActivity extends BaseMvpActivity<IUserMainView, UserMainPresent
     }
 
     ProgressBar progressBar;
-
-    private void userFindCar() {
-        Map<String, String> formData = new HashMap<String, String>(0);
-        formData.put("userId", userId);
-        formData.put("fromAddress", etStartPosition.getText().toString());
-        formData.put("destination", etEndPosition.getText().toString());
-        formData.put("latitude",start_latPoint.getLatitude()+"");
-        formData.put("longitude",start_latPoint.getLongitude()+"");
-        formData.put("kilometre", kilometre + "");
-        formData.put("money", taxiCost + "");
-        presenter.createOrder(formData);
-        positionInput();
-    }
+    ProgressDialog pd;
 
     /**
      * 提交订单
      */
+    private void userFindCar() {
+        pd = new ProgressDialog(MainActivity.this);
+        pd.setMessage("正在提交订单，请稍后..");
+        pd.setCanceledOnTouchOutside(false);
+        pd.setCancelable(false);
+        pd.show();
+        Map<String, String> formData = new HashMap<String, String>(0);
+        formData.put("userId", userId);
+        formData.put("fromAddress", etStartPosition.getText().toString());
+        formData.put("destination", etEndPosition.getText().toString());
+        formData.put("latitude", start_latPoint.getLatitude() + "");
+        formData.put("longitude", start_latPoint.getLongitude() + "");
+        formData.put("kilometre", kilometre + "");
+        formData.put("money", taxiCost + "");
+        formData.put("fromDegree", start_latPoint.getLatitude() + "," + start_latPoint.getLongitude()); //开始地址经纬度  格式：经度，维度
+        formData.put("endDegree", end_latPoint.getLatitude() + "," + end_latPoint.getLongitude()); //终点地址经纬度  格式：经度，维度
+        presenter.createOrder(formData);
+        positionInput();
+
+    }
+
+    /**
+     * 等待接单订单
+     */
     private void WaitingOrder() {
+        status = 3;
         dialog = new AlertDialog.Builder(this).create();
         dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
         dialog.show();
         Window window = dialog.getWindow();
         WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
@@ -626,10 +634,18 @@ public class MainActivity extends BaseMvpActivity<IUserMainView, UserMainPresent
         dialog.getWindow().setAttributes(lp);
         window.setContentView(R.layout.dialog_waiting_order);
         progressBar = (ProgressBar) window.findViewById(R.id.spin_kit);
+
         Circle circle = new Circle();
         progressBar.setIndeterminateDrawable(circle);
-
+        ImageView close = (ImageView) window.findViewById(R.id.iv_close);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
+
 
     /**
      * 位置录入
@@ -640,7 +656,7 @@ public class MainActivity extends BaseMvpActivity<IUserMainView, UserMainPresent
         formData.put("address", address);
         formData.put("longitude", latLng.longitude + "");
         formData.put("latitude", latLng.latitude + "");
-        formData.put("type", "0");
+        formData.put("type", "0");//0用户，1司机
         presenter.positionInputPresenter(formData);
     }
 
@@ -653,16 +669,19 @@ public class MainActivity extends BaseMvpActivity<IUserMainView, UserMainPresent
     /**
      * 已接单
      */
-    private void haveOrder() {
-        haveOrderDialog = new AlertDialog.Builder(this).create();
+    public void haveOrder() {
+        if (null != dialog && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+        haveOrderDialog = new AlertDialog.Builder(MainActivity.this).create();
         haveOrderDialog.setCancelable(false);
         haveOrderDialog.show();
         Window window = haveOrderDialog.getWindow();
+        window.setContentView(R.layout.dialog_have_order);
         WindowManager.LayoutParams lp = haveOrderDialog.getWindow().getAttributes();
-        lp.width = DisplayUtils.dp2px(MainActivity.this, 356);//定义宽度
+        lp.width = DisplayUtils.dp2px(MainActivity.this, 300);//定义宽度
         lp.height = DisplayUtils.dp2px(MainActivity.this, 200);//定义高度
         haveOrderDialog.getWindow().setAttributes(lp);
-        window.setContentView(R.layout.dialog_have_order);
         ImageView iv_close = (ImageView) window.findViewById(R.id.iv_close);
         iv_close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -675,13 +694,17 @@ public class MainActivity extends BaseMvpActivity<IUserMainView, UserMainPresent
         tv_driving_years = (TextView) window.findViewById(R.id.tv_driving_years);
         tv_plate_number = (TextView) window.findViewById(R.id.tv_plate_number);
         tv_phone = (TextView) window.findViewById(R.id.tv_phone);
+        afterReceivingOrder();
     }
 
     /**
      * 司机正在赶往
      */
     private void afterReceivingOrder() {
-        status = 3;
+        status = 4;
+        tv_reminder.setText("距离你500米 约5分钟到达请耐心等待");
+        tv_mileage.setText(kilometre + "");
+        tv_total_money.setText(taxiCost + "");
         tv_evaluate.setVisibility(View.GONE);
         ll_select_address.setVisibility(View.GONE);
         ll_confirm_the_taxi.setVisibility(View.GONE);
@@ -693,7 +716,20 @@ public class MainActivity extends BaseMvpActivity<IUserMainView, UserMainPresent
      * 已经上车正在赶往目的地
      */
     private void overTaking() {
-        status = 4;
+        status = 5;
+        tv_reminder.setText("上车成功，正在前往目的地");
+        tv_evaluate.setVisibility(View.GONE);
+        ll_select_address.setVisibility(View.GONE);
+        ll_confirm_the_taxi.setVisibility(View.GONE);
+        ll_after_receiving_order.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 到达目的地
+     */
+    private void overDestination() {
+        status = 6;
+        tv_reminder.setText("本次行程已结束，可以给司机");
         tv_evaluate.setVisibility(View.VISIBLE);
         ll_select_address.setVisibility(View.GONE);
         ll_confirm_the_taxi.setVisibility(View.GONE);
@@ -710,21 +746,33 @@ public class MainActivity extends BaseMvpActivity<IUserMainView, UserMainPresent
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            switch (status) {
-                case 0:
-                    MainActivity.this.finish();
-                    break;
-                case 1:
-                    status = 0;
-                    SearchPOIPopupWindow.dismiss();
-                    break;
-                case 2:
-                    back();
-                    break;
-            }
+            keyBack();
             return true;
         } else {
             return false;
+        }
+    }
+
+    private void keyBack() {
+        switch (status) {
+            case 0:
+                MainActivity.this.finish();
+                break;
+            case 1:
+                status = 0;
+                SearchPOIPopupWindow.dismiss();
+                break;
+            case 2:
+                back();
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
         }
     }
 
@@ -741,19 +789,67 @@ public class MainActivity extends BaseMvpActivity<IUserMainView, UserMainPresent
     @Override
     public void showError(String errorString) {
         T.showLong(MainActivity.this, errorString);
-
+        pd.dismiss();
     }
 
+    @Override
+    public void haveOrderCallBack() {
+        pd.dismiss();
+        //haveOrder();
+    }
 
     @Override
     public void createOrderCallBack(String data) {
         T.showLong(MainActivity.this, data);
+        pd.dismiss();
         WaitingOrder();
 
     }
 
     @Override
     public void positionInputView(String data) {
-        //T.showLong(MainActivity.this, data);
+        T.showLong(MainActivity.this, data);
     }
+
+
+    /**
+     * 方法必须重写
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        map.onResume();
+    }
+
+    /**
+     * 方法必须重写
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        map.onPause();
+    }
+
+    /**
+     * 方法必须重写
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        map.onSaveInstanceState(outState);
+    }
+
+    /**
+     * 方法必须重写
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        map.onDestroy();
+        if (null != mlocationClient) {
+            mlocationClient.onDestroy();
+        }
+    }
+
+
 }

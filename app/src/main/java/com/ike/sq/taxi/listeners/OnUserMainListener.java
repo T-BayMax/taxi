@@ -8,6 +8,8 @@ public interface OnUserMainListener {
 
     void onCreateOrderCallBack(String data);
 
+    void haveOrder();
+
     void positionInput(String data);
 
     void showError(String errorString);
