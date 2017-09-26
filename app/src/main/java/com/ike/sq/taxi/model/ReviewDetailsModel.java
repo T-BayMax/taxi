@@ -28,17 +28,21 @@ public class ReviewDetailsModel {
 
             @Override
             public void onResponse(String response, int id) {
-                Gson gson = new Gson();
-                Type type = new TypeToken<Code<MotorManBean>>() {
-                }.getType();
-                Code<MotorManBean> code = gson.fromJson(response, type);
-                switch (code.getCode()) {
-                    case 200:
-                        listener.getReviewDetailsListener(code.getData());
-                        break;
-                    default:
-                        listener.showError(CoreErrorConstants.errors.get(code.getCode()));
-                        break;
+                try {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<Code<MotorManBean>>() {
+                    }.getType();
+                    Code<MotorManBean> code = gson.fromJson(response, type);
+                    switch (code.getCode()) {
+                        case 200:
+                            listener.getReviewDetailsListener(code.getData());
+                            break;
+                        default:
+                            listener.showError(CoreErrorConstants.errors.get(code.getCode()));
+                            break;
+                    }
+                }catch (Exception e){
+                    listener.showError("系统异常");
                 }
             }
         });

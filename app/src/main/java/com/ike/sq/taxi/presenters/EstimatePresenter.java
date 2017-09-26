@@ -21,8 +21,8 @@ public class EstimatePresenter extends BasePersenter<IEstimateView> implements O
     public EstimatePresenter() {
         model = new EstimateModel();
     }
-    public void motorManPresenter(Map<String,String> params,Map<String, File> files,String fileName){
-        model.appraise(params,files,fileName,this);
+    public void userEvaluate(Map<String,String> params){
+        model.appraise(params,this);
     }
 
     @Override

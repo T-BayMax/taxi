@@ -5,12 +5,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.andview.refreshview.recyclerview.BaseRecyclerAdapter;
 import com.ike.sq.taxi.R;
 import com.ike.sq.taxi.bean.AroundOrder;
+import com.zhy.autolayout.attr.AutoAttr;
+import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
@@ -36,11 +42,13 @@ public class TakeTaxiRecordAdapter extends BaseRecyclerAdapter<TakeTaxiRecordAda
     @Override
     public void onBindViewHolder(SimpleAdapterViewHolder holder, int position, boolean isItem) {
         if (isItem) {
-
-
+            AroundOrder order = list.get(position);
+            holder.tvTime.setText(order.getTime());
+            holder.tvStatAdders.setText(order.getFromAddress());
+            holder.tvEndAdders.setText(order.getDestination());
+            holder.tvMoney.setText(order.getMoney()+"");
+            holder.tvStatus.setText(order.getStatus()==2?"已完成":"正在进行中");
         }
-
-
     }
 
     @Override
@@ -78,10 +86,10 @@ public class TakeTaxiRecordAdapter extends BaseRecyclerAdapter<TakeTaxiRecordAda
         return vh;
     }
 
-   /* public void insert(ShareBean person, int position) {
-        insert(list, person, position);
-    }
-*/
+    /* public void insert(ShareBean person, int position) {
+         insert(list, person, position);
+     }
+ */
     public void remove(int position) {
         remove(list, position);
     }
@@ -90,9 +98,10 @@ public class TakeTaxiRecordAdapter extends BaseRecyclerAdapter<TakeTaxiRecordAda
         clear(list);
     }
 
-    public void setOnItemClickListener (OnItemClickListener onItemClickListener){
-        this.onItemClickListener=onItemClickListener;
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
+
     @Override
     public void onClick(View v) {
        /* switch (v.getId()) {
@@ -109,12 +118,22 @@ public class TakeTaxiRecordAdapter extends BaseRecyclerAdapter<TakeTaxiRecordAda
     }
 
     public class SimpleAdapterViewHolder extends RecyclerView.ViewHolder {
-
+        @BindView(R.id.tv_time)
+        TextView tvTime;
+        @BindView(R.id.tv_status)
+        TextView tvStatus;
+        @BindView(R.id.tv_stat_adders)
+        TextView tvStatAdders;
+        @BindView(R.id.tv_end_adders)
+        TextView tvEndAdders;
+        @BindView(R.id.tv_money)
+        TextView tvMoney;
 
         public SimpleAdapterViewHolder(View itemView, boolean isItem) {
             super(itemView);
             if (isItem) {
-
+                ButterKnife.bind(this, itemView);
+                AutoUtils.autoSize(itemView, AutoAttr.BASE_HEIGHT);
             }
         }
     }
@@ -135,4 +154,5 @@ public class TakeTaxiRecordAdapter extends BaseRecyclerAdapter<TakeTaxiRecordAda
 
         public void onCommentClick(View view, ShareBean bean);*/
     }
+
 }

@@ -30,7 +30,7 @@ public class TakeTaxiRecordModel {
      */
     public void historicalJourneyData(Map<String, String> formData, final OnTakeTaxiRecordListener listener) {
 
-        HttpUtils.sendGsonPostRequest("/selectArticleComment", formData, new StringCallback() {
+        HttpUtils.sendGsonPostRequest("/selectOrder", formData, new StringCallback() {
 
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -39,22 +39,26 @@ public class TakeTaxiRecordModel {
 
             @Override
             public void onResponse(String response, int id) {
-                Gson gson = new Gson();
-                Type type = new TypeToken<Code<List<AroundOrder>>>() {
-                }.getType();
-                Code<List<AroundOrder>> code = gson.fromJson(response, type);
-                switch (code.getCode()) {
-                    case 200:
-                        if (null != code.getData()) {
-                            listener.historicalJourneyListener(code.getData());
-                        }
-                        break;
-                    case 0:
-                        listener.showError("暂无行程");
-                        break;
-                    default:
-                        listener.showError(CoreErrorConstants.errors.get(code.getCode()));
-                        break;
+                try {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<Code<List<AroundOrder>>>() {
+                    }.getType();
+                    Code<List<AroundOrder>> code = gson.fromJson(response, type);
+                    switch (code.getCode()) {
+                        case 200:
+                            if (null != code.getData()) {
+                                listener.historicalJourneyListener(code.getData());
+                            }
+                            break;
+                        case 0:
+                            listener.showError("暂无行程");
+                            break;
+                        default:
+                            listener.showError(CoreErrorConstants.errors.get(code.getCode()));
+                            break;
+                    }
+                }catch (Exception e){
+                    listener.showError("系统异常");
                 }
             }
         });

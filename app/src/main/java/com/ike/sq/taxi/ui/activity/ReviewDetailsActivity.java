@@ -15,7 +15,6 @@ import com.ike.sq.taxi.presenters.ReviewDetailsPresenters;
 import com.ike.sq.taxi.utils.T;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -27,7 +26,7 @@ import butterknife.OnClick;
  * Created by T-BayMax on 2017/6/3.
  */
 
-public class ReviewDetailsAcitivy extends BaseMvpActivity<IReviewDetailsView, ReviewDetailsPresenters> implements IReviewDetailsView {
+public class ReviewDetailsActivity extends BaseMvpActivity<IReviewDetailsView, ReviewDetailsPresenters> implements IReviewDetailsView {
 
     @BindView(R.id.lt_main_title_left)
     TextView ltMainTitleLeft;
@@ -72,12 +71,15 @@ public class ReviewDetailsAcitivy extends BaseMvpActivity<IReviewDetailsView, Re
     }
 
     private void initView() {
-        userId="13824692192";
+        userId =getIntent().getStringExtra("userId");
+        if(null==userId){
+            userId =getIntent().getStringExtra("loginid");
+        }
         ltMainTitle.setText("审核详情");
         ltMainTitleRight.setCompoundDrawables(null, null, null, null);
         ivAudit.setImageResource(R.mipmap.standing_progress);
-        tvAudit.setTextColor(ContextCompat.getColor(ReviewDetailsAcitivy.this, R.color.color_10));
-        tvAuditDetails.setTextColor(ContextCompat.getColor(ReviewDetailsAcitivy.this, R.color.color_66));
+        tvAudit.setTextColor(ContextCompat.getColor(ReviewDetailsActivity.this, R.color.color_10));
+        tvAuditDetails.setTextColor(ContextCompat.getColor(ReviewDetailsActivity.this, R.color.color_66));
         Map<String,String> formData=new HashMap<>(0);
         formData.put("userId",userId);
         presenter.getReviewDetails(formData);
@@ -100,7 +102,7 @@ public class ReviewDetailsAcitivy extends BaseMvpActivity<IReviewDetailsView, Re
 
     @Override
     public void showError(String errorString) {
-        T.showLong(ReviewDetailsAcitivy.this,errorString);
+        T.showLong(ReviewDetailsActivity.this,errorString);
     }
 
     @Override
@@ -108,8 +110,8 @@ public class ReviewDetailsAcitivy extends BaseMvpActivity<IReviewDetailsView, Re
         rlReview.setVisibility(View.VISIBLE);
         if (data.getStatus() == 1) {
             tvAuditResultDetails.setText("审核成功，恭喜你成为司机的一员\n" + data.getEndTime());
-            vAudit.setBackgroundColor(ContextCompat.getColor(ReviewDetailsAcitivy.this, R.color.color_10));
-            tvAuditResult.setTextColor(ContextCompat.getColor(ReviewDetailsAcitivy.this, R.color.color_66));
+            vAudit.setBackgroundColor(ContextCompat.getColor(ReviewDetailsActivity.this, R.color.color_10));
+            tvAuditResult.setTextColor(ContextCompat.getColor(ReviewDetailsActivity.this, R.color.color_66));
             ivAuditResult.setImageResource(R.mipmap.standing_progress);
             //auditResult();
         }
@@ -117,13 +119,13 @@ public class ReviewDetailsAcitivy extends BaseMvpActivity<IReviewDetailsView, Re
     }
 
    /* private void auditResult() {
-            vAudit.setBackgroundColor(ContextCompat.getColor(ReviewDetailsAcitivy.this, R.color.color_10));
-            tvAuditResult.setBackgroundColor(ContextCompat.getColor(ReviewDetailsAcitivy.this, R.color.color_66));
+            vAudit.setBackgroundColor(ContextCompat.getColor(ReviewDetailsActivity.this, R.color.color_10));
+            tvAuditResult.setBackgroundColor(ContextCompat.getColor(ReviewDetailsActivity.this, R.color.color_66));
             ivAuditResult.setImageResource(R.mipmap.standing_progress);
     }*/
 
     @OnClick(R.id.lt_main_title_left)
     public void onViewClicked() {
-        ReviewDetailsAcitivy.this.finish();
+        ReviewDetailsActivity.this.finish();
     }
 }

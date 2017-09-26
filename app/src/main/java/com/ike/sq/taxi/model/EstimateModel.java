@@ -21,28 +21,32 @@ import okhttp3.Call;
  */
 
 public class EstimateModel {
-    public void appraise(Map<String, String> params, Map<String,File> files, String fileName, final OnEstimateListener listener) {
+    public void appraise(Map<String, String> params, final OnEstimateListener listener) {
 
-        HttpUtils.sendFormatPostRequest("/appraise", params,null, files, fileName, new StringCallback() {
+        HttpUtils.sendGsonPostRequest("/userEvaluate", params, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
-                listener.showError(e.toString());
+                listener.showError("系统异常");
             }
 
             @Override
             public void onResponse(String response, int id) {
-                Gson gson = new Gson();
-                Type type = new TypeToken<Code<MotorManBean>>() {
-                }.getType();
-                Code<MotorManBean> code = gson.fromJson(response, type);
-                switch (code.getCode()) {
-                    case 200:
-                        listener.appraiseListeners("评论提交成功！");
-                        break;
+                try {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<Code<MotorManBean>>() {
+                    }.getType();
+                    Code<MotorManBean> code = gson.fromJson(response, type);
+                    switch (code.getCode()) {
+                        case 200:
+                            listener.appraiseListeners("评论提交成功！");
+                            break;
 
-                    default:
-                        listener.showError(CoreErrorConstants.errors.get(code.getCode()));
-                        break;
+                        default:
+                            listener.showError(CoreErrorConstants.errors.get(code.getCode()));
+                            break;
+                    }
+                } catch (Exception e) {
+                    listener.showError("系统异常");
                 }
             }
         });

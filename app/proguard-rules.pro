@@ -89,10 +89,47 @@
 -keep public class * extends android.support.v4.**
 -keep public class * extends android.app.Fragment
 
+
+-keep   class com.amap.api.maps.**{*;}
+-keep   class com.autonavi.**{*;}
+-keep   class com.amap.api.trace.**{*;}
+
+#定位
+-keep class com.amap.api.location.**{*;}
+-keep class com.amap.api.fence.**{*;}
+-keep class com.autonavi.aps.amapapi.model.**{*;}
+
+#搜索
+-keep   class com.amap.api.services.**{*;}
+
+#2D地图
+-keep class com.amap.api.maps2d.**{*;}
+-keep class com.amap.api.mapcore2d.**{*;}
+
+#导航
+-keep class com.amap.api.navi.**{*;}
+-keep class com.autonavi.**{*;}
+
+-keep class com.amap.**{*;}
+-dontwarn com.amap.**
+
+#Gson
+# -keepattributes Signature-keepattributes *Annotation*
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.stream.** { *; }
+#OKHTTP3
+-dontwarn com.squareup.okhttp3.**
+-keep class com.squareup.okhttp3.** { *;}
+-dontwarn okio.**
+
+-keep class okhttp3.internal.**{*;}
+-dontwarn okhttp3.internal.**
 #友盟
 -dontwarn com.taobao.**
 -dontwarn anet.channel.**
 -dontwarn anetwork.channel.**
+-dontwarn com.umeng.**
+-dontwarn com.alibaba.**
 -dontwarn org.android.**
 -dontwarn org.apache.thrift.**
 -dontwarn com.xiaomi.**
@@ -124,4 +161,33 @@
    public static *** i(...);
    public static *** w(...);
  }
+ #讯飞
+ -keep class com.iflytek.**{*;}
+ -keepattributes Signature
+
+
+ -keep class butterknife.**{*;}
+ -dontwarn butterknife.**
+
+ -keep class cn.finalteam.rxgalleryfinal.**{*;}
+ -dontwarn cn.finalteam.rxgalleryfinal.**
+
+ -keep class com.google.**{*;}
+ -dontwarn com.google.**
+
+ -keep class com.squareup.**{*;}
+ -dontwarn com.squareup.**
+
+ -keep class rx.internal.util.**{*;}
+ -dontwarn rx.internal.util.**
+
+-keep class io.reactivex.internal.**{*;}
+-dontwarn io.reactivex.internal.**
+
+-keep class anet.channel.**{*;}
+-dontwarn anet.channel.**
+
+-keep class com.ike.sq.taxi.App{*;}
+-dontwarn com.ike.sq.taxi.App
+  -keep class com.ike.sq.taxi.app{*;}
 

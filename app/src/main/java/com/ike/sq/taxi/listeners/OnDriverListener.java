@@ -18,6 +18,8 @@ public interface OnDriverListener {
 
     void positionInput(String data);
 
+    void selectUseOrder(List<AroundOrder> data);
+
     void arrivingDestinationListener(AroundOrder data);//到达目的地
 
     void showError(String errorString);

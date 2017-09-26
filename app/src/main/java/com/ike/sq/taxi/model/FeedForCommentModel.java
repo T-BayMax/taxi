@@ -28,7 +28,7 @@ public class FeedForCommentModel {
      */
     public void getFeedCommentInfo(Map<String, String> formData, final OnFeedForCommentListListener listener) {
 
-        HttpUtils.sendGsonPostRequest("/selectArticleComment", formData, new StringCallback() {
+        HttpUtils.sendGsonPostRequest("/selectEvaluate", formData, new StringCallback() {
 
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -37,22 +37,26 @@ public class FeedForCommentModel {
 
             @Override
             public void onResponse(String response, int id) {
-                Gson gson = new Gson();
-                Type type = new TypeToken<Code<List<CommentsBean>>>() {
-                }.getType();
-                Code<List<CommentsBean>> code = gson.fromJson(response, type);
-                switch (code.getCode()) {
-                    case 200:
-                        if (null != code.getData()) {
-                            listener.getFeedCommentInfo(code.getData());
-                        }
-                        break;
-                    case 0:
-                        listener.showError("暂无评论");
-                        break;
-                    default:
-                        listener.showError(CoreErrorConstants.errors.get(code.getCode()));
-                        break;
+                try {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<Code<List<CommentsBean>>>() {
+                    }.getType();
+                    Code<List<CommentsBean>> code = gson.fromJson(response, type);
+                    switch (code.getCode()) {
+                        case 200:
+                            if (null != code.getData()) {
+                                listener.getFeedCommentInfo(code.getData());
+                            }
+                            break;
+                        case 0:
+                            listener.showError("暂无评论");
+                            break;
+                        default:
+                            listener.showError(CoreErrorConstants.errors.get(code.getCode()));
+                            break;
+                    }
+                }catch (Exception e){
+                    listener.showError("系统异常");
                 }
             }
         });

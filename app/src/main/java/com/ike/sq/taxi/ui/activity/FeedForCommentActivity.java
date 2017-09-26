@@ -47,22 +47,18 @@ public class FeedForCommentActivity extends BaseMvpActivity<IFeedForCommentListV
     @BindView(R.id.xrefreshview)
     XRefreshView xRefreshView;
 
-
-    private View headerView;
-
     private boolean isRefresh = true;
-    private boolean isComment = false;
 
     List<CommentsBean> personList = new ArrayList<CommentsBean>();
     LinearLayoutManager layoutManager;
-    private int mLoadCount = 0;
 
-    private int limit = 20;
+    private int limit = 10;
     private int page = 1;
 
     FeedForCommentListAdapter adapter;
 
     private String userId;
+    private int type;
 
 
     @Override
@@ -78,6 +74,9 @@ public class FeedForCommentActivity extends BaseMvpActivity<IFeedForCommentListV
         ltMainTitle.setText("评论列表");
         Intent intent = getIntent();
         userId = intent.getStringExtra("userId");
+        type=intent.getIntExtra("type",1);
+
+        ltMainTitleRight.setVisibility(View.GONE);
 
         xRefreshView.setPullLoadEnable(true);
         recyclerView.setHasFixedSize(true);
@@ -131,6 +130,7 @@ public class FeedForCommentActivity extends BaseMvpActivity<IFeedForCommentListV
         Map<String, String> formData = new HashMap<String, String>(0);
         formData.put("userId", userId);
         formData.put("page",page+"");
+        formData.put("type",type+"");
         presenter.FeedCommentInfo(formData);
     }
 
@@ -138,10 +138,6 @@ public class FeedForCommentActivity extends BaseMvpActivity<IFeedForCommentListV
     void leftClick() {
         FeedForCommentActivity.this.finish();
     }
-
-
-    FeedForCommentListAdapter.AdapterViewHolder viewHolder;
-    CommentsBean commentsBean;
 
 
     @Override

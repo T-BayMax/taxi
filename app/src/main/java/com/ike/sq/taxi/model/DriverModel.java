@@ -20,8 +20,8 @@ import okhttp3.Call;
  */
 
 public class DriverModel {
-    public void selectAroundOrder(Map<String,String> formData, final OnDriverListener listener){
-        HttpUtils.sendGsonPostRequest("/selectAroundOrder",formData,new StringCallback() {
+    public void selectAroundOrder(Map<String, String> formData, final OnDriverListener listener) {
+        HttpUtils.sendGsonPostRequest("/selectAroundOrder", formData, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 listener.showError(e.toString());
@@ -29,17 +29,21 @@ public class DriverModel {
 
             @Override
             public void onResponse(String response, int id) {
-                Gson gson = new Gson();
-                Type type = new TypeToken<Code<List<AroundOrder>>>() {
-                }.getType();
-                Code<List<AroundOrder>> code = gson.fromJson(response, type);
-                switch (code.getCode()) {
-                    case 200:
-                        listener.selectAroundOrder(code.getData());
-                        break;
-                    default:
-                        listener.showError(CoreErrorConstants.errors.get(code.getCode()));
-                        break;
+                try {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<Code<List<AroundOrder>>>() {
+                    }.getType();
+                    Code<List<AroundOrder>> code = gson.fromJson(response, type);
+                    switch (code.getCode()) {
+                        case 200:
+                            listener.selectAroundOrder(code.getData());
+                            break;
+                        default:
+                            listener.showError(CoreErrorConstants.errors.get(code.getCode()));
+                            break;
+                    }
+                }catch (Exception e){
+                    listener.showError("系统异常");
                 }
             }
         });
@@ -47,11 +51,12 @@ public class DriverModel {
 
     /**
      * 位置录入
+     *
      * @param formData
      * @param listener
      */
-    public void positionInput(Map<String,String> formData, final OnDriverListener listener){
-        HttpUtils.sendGsonPostRequest("/positionInput",formData,new StringCallback() {
+    public void positionInput(Map<String, String> formData, final OnDriverListener listener) {
+        HttpUtils.sendGsonPostRequest("/positionInput", formData, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 listener.showError(e.toString());
@@ -59,17 +64,21 @@ public class DriverModel {
 
             @Override
             public void onResponse(String response, int id) {
-                Gson gson = new Gson();
-                Type type = new TypeToken<Code>() {
-                }.getType();
-                Code code = gson.fromJson(response, type);
-                switch (code.getCode()) {
-                    case 200:
-                        listener.positionInput("成功");
-                        break;
-                    default:
-                        listener.showError(CoreErrorConstants.errors.get(code.getCode()));
-                        break;
+                try {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<Code>() {
+                    }.getType();
+                    Code code = gson.fromJson(response, type);
+                    switch (code.getCode()) {
+                        case 200:
+                            listener.positionInput("成功");
+                            break;
+                        default:
+                            //listener.showError(CoreErrorConstants.errors.get(code.getCode()));
+                            break;
+                    }
+                }catch (Exception e){
+                    listener.showError("系统异常");
                 }
             }
         });
@@ -77,18 +86,20 @@ public class DriverModel {
 
     /**
      * 接单
+     *
      * @param formData
      * @param listener
      */
-    public void driverRobOrder(Map<String,String> formData, final OnDriverListener listener){
-            HttpUtils.sendGsonPostRequest("/driverRobOrder",formData,new StringCallback() {
-                @Override
-                public void onError(Call call, Exception e, int id) {
-                    listener.showError(e.toString());
-                }
+    public void driverRobOrder(Map<String, String> formData, final OnDriverListener listener) {
+        HttpUtils.sendGsonPostRequest("/driverRobOrder", formData, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                listener.showError(e.toString());
+            }
 
-                @Override
-                public void onResponse(String response, int id) {
+            @Override
+            public void onResponse(String response, int id) {
+                try {
                     Gson gson = new Gson();
                     Type type = new TypeToken<Code>() {
                     }.getType();
@@ -101,17 +112,21 @@ public class DriverModel {
                             listener.showError(CoreErrorConstants.errors.get(code.getCode()));
                             break;
                     }
+                }catch (Exception e){
+                    listener.showError("系统异常");
                 }
-            });
+            }
+        });
     }
 
     /**
-     * 接到乘客
+     * 正在进行中的订单
+     *
      * @param formData
      * @param listener
      */
-    public void driverTakeUser(Map<String,String> formData, final OnDriverListener listener){
-        HttpUtils.sendGsonPostRequest("/driverTakeUser",formData,new StringCallback() {
+    public void selectUseOrder(Map<String, String> formData, final OnDriverListener listener) {
+        HttpUtils.sendGsonPostRequest("/selectUseOreder", formData, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 listener.showError(e.toString());
@@ -119,17 +134,56 @@ public class DriverModel {
 
             @Override
             public void onResponse(String response, int id) {
-                Gson gson = new Gson();
-                Type type = new TypeToken<Code>() {
-                }.getType();
-                Code code = gson.fromJson(response, type);
-                switch (code.getCode()) {
-                    case 200:
-                        listener.driverTakeUser("接到乘客");
-                        break;
-                    default:
-                        listener.showError(CoreErrorConstants.errors.get(code.getCode()));
-                        break;
+                try {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<Code<List<AroundOrder>>>() {
+                    }.getType();
+                    Code<List<AroundOrder>> code = gson.fromJson(response, type);
+                    switch (code.getCode()) {
+                        case 200:
+                            listener.selectUseOrder(code.getData());
+                            break;
+                        default:
+                            listener.showError(CoreErrorConstants.errors.get(code.getCode()));
+                            break;
+                    }
+                }catch (Exception e){
+                    listener.showError("系统异常");
+                }
+            }
+        });
+    }
+
+    /**
+     * 接到乘客
+     *
+     * @param formData
+     * @param listener
+     */
+    public void driverTakeUser(Map<String, String> formData, final OnDriverListener listener) {
+        HttpUtils.sendGsonPostRequest("/driverTakeUser", formData, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                listener.showError(e.toString());
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                try {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<Code>() {
+                    }.getType();
+                    Code code = gson.fromJson(response, type);
+                    switch (code.getCode()) {
+                        case 200:
+                            listener.driverTakeUser("接到乘客");
+                            break;
+                        default:
+                            listener.showError(CoreErrorConstants.errors.get(code.getCode()));
+                            break;
+                    }
+                } catch (Exception e) {
+                    listener.showError("系统异常");
                 }
             }
         });
@@ -137,11 +191,12 @@ public class DriverModel {
 
     /**
      * 到达目的地
+     *
      * @param formData
      * @param listener
      */
-    public void arrivingDestination(Map<String,String> formData, final OnDriverListener listener){
-        HttpUtils.sendGsonPostRequest("/driverArriveAddress",formData,new StringCallback() {
+    public void arrivingDestination(Map<String, String> formData, final OnDriverListener listener) {
+        HttpUtils.sendGsonPostRequest("/driverArriveAddress", formData, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 listener.showError(e.toString());
@@ -149,17 +204,21 @@ public class DriverModel {
 
             @Override
             public void onResponse(String response, int id) {
-                Gson gson = new Gson();
-                Type type = new TypeToken<Code<AroundOrder>>() {
-                }.getType();
-                Code<AroundOrder> code = gson.fromJson(response, type);
-                switch (code.getCode()) {
-                    case 200:
-                        listener.arrivingDestinationListener(code.getData());
-                        break;
-                    default:
-                        listener.showError(CoreErrorConstants.errors.get(code.getCode()));
-                        break;
+                try {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<Code<AroundOrder>>() {
+                    }.getType();
+                    Code<AroundOrder> code = gson.fromJson(response, type);
+                    switch (code.getCode()) {
+                        case 200:
+                            listener.arrivingDestinationListener(code.getData());
+                            break;
+                        default:
+                            listener.showError(CoreErrorConstants.errors.get(code.getCode()));
+                            break;
+                    }
+                } catch (Exception e) {
+                    listener.showError("系统异常");
                 }
             }
         });

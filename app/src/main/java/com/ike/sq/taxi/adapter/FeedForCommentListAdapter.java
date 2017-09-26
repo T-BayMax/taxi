@@ -16,6 +16,7 @@ import com.ike.sq.taxi.R;
 import com.ike.sq.taxi.bean.CommentsBean;
 import com.ike.sq.taxi.network.HttpUtils;
 import com.ike.sq.taxi.utils.CircleTransform;
+import com.ike.sq.taxi.view.RatingBar;
 import com.squareup.picasso.Picasso;
 import com.zhy.autolayout.attr.AutoAttr;
 import com.zhy.autolayout.utils.AutoUtils;
@@ -26,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 分享评论列表item
+ * 评论列表item
  * Created by T-BayMax on 2017/3/20.
  */
 
@@ -50,19 +51,12 @@ public class FeedForCommentListAdapter extends BaseRecyclerAdapter<FeedForCommen
             final CommentsBean bean = list.get(position);
             if (null!=bean.getUserPortraitUrl()) {
                 Picasso.with(context).load(HttpUtils.IMAGE_RUL + bean.getUserPortraitUrl())
-                        .transform(new CircleTransform()).into(holder.ivShareIcon);
+                        .transform(new CircleTransform()).into(holder.ivIcon);
             }
-            holder.tvShareUserName.setText(bean.getNickname()+(bean.getFromNickname()!=null?"  回复  "+bean.getFromNickname():""));
+            holder.tvUserName.setText(bean.getUserName());
             holder.tvContent.setText(bean.getContent());
-            holder.tvLikeBtn.setText(bean.getLikes() + "");
-            holder.tvShareCommentTime.setText(bean.getCommentTime());
+            holder.rbStarNumber.setStar(bean.getStarNumber());
 
-            holder.llLike.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClickListener.onLikeClick(holder, bean);
-                }
-            });
             holder.rlItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -122,21 +116,17 @@ public class FeedForCommentListAdapter extends BaseRecyclerAdapter<FeedForCommen
 
     public class AdapterViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.iv_share_icon)
-        ImageView ivShareIcon;
-        @BindView(R.id.tv_share_user_Name)
-        TextView tvShareUserName;
-        @BindView(R.id.tv_like_btn)
-        public TextView tvLikeBtn;
+        @BindView(R.id.iv_icon)
+        ImageView ivIcon;
+        @BindView(R.id.tv_user_Name)
+        TextView tvUserName;
 
         @BindView(R.id.tv_content)
         TextView tvContent;
-        @BindView(R.id.tv_share_comment_time)
-        TextView tvShareCommentTime;
-        @BindView(R.id.ll_like)
-        LinearLayout llLike;
         @BindView(R.id.rl_item)
-        RelativeLayout rlItem;
+        LinearLayout rlItem;
+        @BindView(R.id.rb_starNumber)
+        RatingBar rbStarNumber;
 
         public AdapterViewHolder(View itemView, boolean isItem) {
             super(itemView);
@@ -158,8 +148,6 @@ public class FeedForCommentListAdapter extends BaseRecyclerAdapter<FeedForCommen
     }
     public interface OnItemClickListener {
         public void onItemClick(AdapterViewHolder viewHolder, CommentsBean bean);
-
-        public void onLikeClick(AdapterViewHolder viewHolder, CommentsBean bean);
 
     }
 }

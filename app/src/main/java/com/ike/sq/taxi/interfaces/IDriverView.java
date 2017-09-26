@@ -16,11 +16,15 @@ public interface IDriverView extends BaseView {
 
     void driverTakeUser(String data);
 
+    void selectUseOrder(List<AroundOrder> data);
+
     /**
      * 到达目的地
+     *
      * @param data
      */
     void arrivingDestinationView(AroundOrder data);
+
 
     void positionInputView(String data);
 }

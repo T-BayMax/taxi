@@ -19,6 +19,10 @@ public class CommentsBean implements Serializable{
     private int likes;           //评论点赞数量
     private int likesStatus;  //1当前用户已点赞  0未点赞
 
+    private String userName;        //用户姓名
+    private int starNumber;      //评星数量
+
+
     private String fromUserId;      //被回复用户id
     private String fromNickname;   //被回复用户昵称
     private String fromPortraitUrl;     //被回复头像
@@ -126,5 +130,21 @@ public class CommentsBean implements Serializable{
 
     public void setFromContent(String fromContent) {
         this.fromContent = fromContent;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public int getStarNumber() {
+        return starNumber;
+    }
+
+    public void setStarNumber(int starNumber) {
+        this.starNumber = starNumber;
     }
 }

@@ -29,17 +29,21 @@ public class VehiclesChoiceModel {
 
             @Override
             public void onResponse(String response, int id) {
-                Gson gson=new Gson();
-                Type type = new TypeToken<JsonResult<List<CarBrandBean>>>() {
-                }.getType();
-                JsonResult<List<CarBrandBean>> code = gson.fromJson(response,type);
-                switch (code.getRetCode()) {
-                    case 200:
-                        listener.brandListener(code.getResult());
-                        break;
-                    case 0:
-                        listener.showError("查询失败");
-                        break;
+                try {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<JsonResult<List<CarBrandBean>>>() {
+                    }.getType();
+                    JsonResult<List<CarBrandBean>> code = gson.fromJson(response, type);
+                    switch (code.getRetCode()) {
+                        case 200:
+                            listener.brandListener(code.getResult());
+                            break;
+                        case 0:
+                            listener.showError("查询失败");
+                            break;
+                    }
+                }catch (Exception e){
+                    listener.showError("系统异常");
                 }
             }
         });

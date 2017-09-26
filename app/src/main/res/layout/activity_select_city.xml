@@ -33,43 +33,45 @@
         android:background="@color/aam_item_border"/>
 
     <RelativeLayout
-        android:background="@android:color/white"
         android:layout_width="match_parent"
-        android:paddingBottom="@dimen/border_10"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:paddingBottom="@dimen/border_10">
+
         <EditText
-            android:maxLines="1"
-            android:layout_marginLeft="@dimen/border_20"
-            android:layout_marginRight="@dimen/border_20"
-            android:textColor="@color/color_66"
             android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:hint="请输入城市名或拼音"
-            android:textColorHint="@color/color_99"
-            android:textSize="@dimen/font_32"
-            android:paddingLeft="@dimen/border_60"
+            android:layout_marginLeft="@dimen/border_20"
+            android:layout_marginRight="@dimen/border_20"
             android:background="@drawable/edit_bg"
-            />
+            android:hint="请输入城市名或拼音"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/border_60"
+            android:textColor="@color/color_66"
+            android:textColorHint="@color/color_99"
+            android:textSize="@dimen/font_32" />
+
         <ImageView
-            android:layout_marginLeft="@dimen/border_40"
-            android:layout_alignTop="@+id/et_search"
-            android:layout_alignBottom="@+id/et_search"
             android:layout_width="15dp"
             android:layout_height="15dp"
+            android:layout_alignBottom="@+id/et_search"
             android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/et_search"
             android:layout_centerVertical="true"
-            android:src="@drawable/cp_ic_search"/>
+            android:layout_marginLeft="@dimen/border_40"
+            android:src="@drawable/cp_ic_search" />
+
         <ImageView
             android:id="@+id/iv_search_clear"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginRight="@dimen/border_20"
-            android:scaleType="centerInside"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/border_20"
+            android:scaleType="centerInside"
             android:src="@drawable/cp_ic_search_clear"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
     </RelativeLayout>
 
     <RelativeLayout

@@ -39,10 +39,11 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.finalteam.rxgalleryfinal.RxGalleryFinal;
-import cn.finalteam.rxgalleryfinal.imageloader.ImageLoaderType;
-import cn.finalteam.rxgalleryfinal.rxbus.RxBusResultSubscriber;
+import cn.finalteam.rxgalleryfinal.RxGalleryFinalApi;
+import cn.finalteam.rxgalleryfinal.rxbus.RxBusResultDisposable;
 import cn.finalteam.rxgalleryfinal.rxbus.event.ImageRadioResultEvent;
+import cn.finalteam.rxgalleryfinal.ui.base.IRadioImageCheckedListener;
+import cn.finalteam.rxgalleryfinal.utils.Logger;
 import cn.finalteam.rxgalleryfinal.utils.ModelUtils;
 
 /**
@@ -109,7 +110,7 @@ public class AddMotormanActivity extends BaseMvpActivity<IAddMotorManView, AddMo
     }
 
     private void initView() {
-        userId = "13824692192";
+        userId = getIntent().getStringExtra("userId");
         ltMainTitle.setText("申请表");
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.city_abbreviation,
                 android.R.layout.simple_spinner_item);
@@ -302,22 +303,29 @@ public class AddMotormanActivity extends BaseMvpActivity<IAddMotorManView, AddMo
     }
 
     private void checkImage() {
-        RxGalleryFinal
-                .with(AddMotormanActivity.this)
-                .image()
-                .radio()
-                .crop()
-                .imageLoader(ImageLoaderType.PICASSO)
-                .subscribe(new RxBusResultSubscriber<ImageRadioResultEvent>() {
+        RxGalleryFinalApi.getInstance(AddMotormanActivity.this).openGalleryRadioImgDefault(
+                new RxBusResultDisposable<ImageRadioResultEvent>() {
                     @Override
                     protected void onEvent(ImageRadioResultEvent imageRadioResultEvent) throws Exception {
-                        path = imageRadioResultEvent.getResult().getOriginalPath();
+
+                    }
+                }).onCropImageResult(
+                new IRadioImageCheckedListener() {
+                    @Override
+                    public void cropAfter(Object t) {
+                        path = t.toString();
                         file = new File(path);
 
                         ivFile.setImageBitmap(ImageManage.getSmallBitmap(path));
 
                     }
-                }).openGallery();
+
+                    @Override
+                    public boolean isActivityFinish() {
+                        Logger.i("返回false不关闭，返回true则为关闭");
+                        return true;
+                    }
+                });
     }
 
     private void motorManPresenter() {

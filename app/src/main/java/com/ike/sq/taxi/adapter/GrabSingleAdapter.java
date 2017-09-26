@@ -52,7 +52,7 @@ public class GrabSingleAdapter extends BaseRecyclerAdapter<GrabSingleAdapter.Vie
     public void onBindViewHolder(final ViewHolder holder,  int position, boolean isItem) {
         if (isItem) {
             final AroundOrder bean=list.get(position);
-           // holder.tvName.setText(bean.get);
+            holder.tvName.setText(bean.getUserName());
             holder.tvDistance.setText("距离"+bean.getKilometre()+"米");
             holder.tvPlace.setText(bean.getDestination());
             holder.tvGrabSingle.setOnClickListener(new View.OnClickListener() {

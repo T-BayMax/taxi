@@ -30,17 +30,21 @@ public class AddMotorManModel {
 
             @Override
             public void onResponse(String response, int id) {
-                Gson gson = new Gson();
-                Type type = new TypeToken<Code>() {
-                }.getType();
-                Code code = gson.fromJson(response, type);
-                switch (code.getCode()) {
-                    case 200:
-                        listener.motorManListeners("申请提交成功，请耐心等待审核！");
-                        break;
-                    default:
-                        listener.showError(CoreErrorConstants.errors.get(code.getCode()));
-                        break;
+                try {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<Code>() {
+                    }.getType();
+                    Code code = gson.fromJson(response, type);
+                    switch (code.getCode()) {
+                        case 200:
+                            listener.motorManListeners("申请提交成功，请耐心等待审核！");
+                            break;
+                        default:
+                            listener.showError(CoreErrorConstants.errors.get(code.getCode()));
+                            break;
+                    }
+                }catch (Exception e){
+                    listener.showError("系统异常");
                 }
             }
         });

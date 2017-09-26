@@ -35,6 +35,34 @@ public class DateConversionUtils {
     }
 
     /**
+     * 计算时差
+     * @param satDate
+     * @param endDate
+     * @return
+     */
+    public static String calculatingTime(String satDate,String endDate){
+        try {
+            String formatType="yyyy-MM-dd HH:mm:ss";
+            long howLong =stringToLong(endDate,formatType)-stringToLong(satDate, formatType);
+
+            int minutes = (int) (howLong / 1000 / 60);
+            String refreshTimeText = null;
+            if (minutes < 60) {
+                refreshTimeText = minutes + "分钟";
+            } else if (minutes < 60 * 24) {
+
+                refreshTimeText = minutes / 60 + "小时" + minutes % 60 + "分钟";
+            } else {
+                refreshTimeText = minutes / (60 * 24) + "天" + minutes % 24 + "小时" + minutes % 60 + "分钟";
+            }
+
+            return refreshTimeText;
+        }catch (Exception e){
+            return "--分钟";
+        }
+    }
+
+    /**
      * string类型转换为date类型
      * strTime要转换的string类型的时间，formatType要转换的格式yyyy-MM-dd HH:mm:ss//yyyy年MM月dd日
      * HH时mm分ss秒，

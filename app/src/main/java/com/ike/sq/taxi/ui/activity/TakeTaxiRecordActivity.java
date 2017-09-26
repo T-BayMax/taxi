@@ -51,21 +51,18 @@ public class TakeTaxiRecordActivity extends BaseMvpActivity<ITakeTaxiRecordView,
     XRefreshView xRefreshView;
 
 
-    private View headerView;
-
     private boolean isRefresh = true;
-    private boolean isComment = false;
 
     List<AroundOrder> personList = new ArrayList<AroundOrder>();
     LinearLayoutManager layoutManager;
-    private int mLoadCount = 0;
 
-    private int limit = 20;
+    private int limit = 10;
     private int page = 1;
 
     TakeTaxiRecordAdapter adapter;
 
     private String userId;
+    private int type;
 
 
     @Override
@@ -81,6 +78,9 @@ public class TakeTaxiRecordActivity extends BaseMvpActivity<ITakeTaxiRecordView,
         ltMainTitle.setText("我的行程");
         Intent intent = getIntent();
         userId = intent.getStringExtra("userId");
+        type=intent.getIntExtra("type",1);
+
+        ltMainTitleRight.setVisibility(View.GONE);
 
         xRefreshView.setPullLoadEnable(true);
         recyclerView.setHasFixedSize(true);
@@ -134,6 +134,7 @@ public class TakeTaxiRecordActivity extends BaseMvpActivity<ITakeTaxiRecordView,
         Map<String, String> formData = new HashMap<String, String>(0);
         formData.put("userId", userId);
         formData.put("page",page+"");
+        formData.put("type",type+"");
         presenter.historicalJourney(formData);
     }
 
@@ -141,10 +142,6 @@ public class TakeTaxiRecordActivity extends BaseMvpActivity<ITakeTaxiRecordView,
     void leftClick() {
         TakeTaxiRecordActivity.this.finish();
     }
-
-
-    FeedForCommentListAdapter.AdapterViewHolder viewHolder;
-    CommentsBean commentsBean;
 
 
     @Override

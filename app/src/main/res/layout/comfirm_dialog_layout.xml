@@ -1,28 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoRelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <com.zhy.autolayout.AutoRelativeLayout
-        android:layout_width="530px"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true">
 
-        <com.zhy.autolayout.AutoLinearLayout
-            android:id="@+id/ll_comfirm_dialog"
-            android:layout_width="470px"
-            android:layout_height="266px"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="30px"
-            android:background="@android:color/white"
-            android:orientation="vertical">
 
             <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="176px"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_height="@dimen/border_88"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -35,23 +27,24 @@
                     android:textColor="@color/color_33"
                     android:textSize="@dimen/font_30"
                     android:textStyle="bold" />
+
             </com.zhy.autolayout.AutoLinearLayout>
 
-            <Button
-                android:id="@+id/btn_comfirm_dialog_comfirm"
-                android:layout_width="match_parent"
-                android:layout_height="90px"
-                android:background="@mipmap/btn_login"
-                android:gravity="center"
-                android:text="确认" />
-        </com.zhy.autolayout.AutoLinearLayout>
 
-        <ImageView
-            android:id="@+id/iv_comfirm_dialog_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="20dp"
-            android:src="@mipmap/close" />
+        <Button
+            android:id="@+id/btn_comfirm_dialog_comfirm"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/border_88"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_10"
+            android:gravity="center"
+            android:text="确认" />
     </com.zhy.autolayout.AutoRelativeLayout>
+    <ImageView
+        android:id="@+id/iv_comfirm_dialog_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        android:src="@mipmap/close" />
 </com.zhy.autolayout.AutoRelativeLayout>

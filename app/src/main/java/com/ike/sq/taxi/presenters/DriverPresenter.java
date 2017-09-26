@@ -23,17 +23,25 @@ public class DriverPresenter extends BasePersenter<IDriverView> implements OnDri
     public void getAroundOrder(Map<String, String> formData) {
         model.selectAroundOrder(formData, this);
     }
-    public void positionInputPresenter(Map<String ,String> formData){
-        model.positionInput(formData,this);
+
+    public void positionInputPresenter(Map<String, String> formData) {
+        model.positionInput(formData, this);
     }
+
+    public void selectUseOrder(Map<String, String> formData) {
+        model.selectUseOrder(formData, this);
+    }
+
     public void driverRobOrder(Map<String, String> formData) {
         model.driverRobOrder(formData, this);
     }
-    public void takeUser(Map<String, String> formData){
-        model.driverTakeUser(formData,this);
+
+    public void takeUser(Map<String, String> formData) {
+        model.driverTakeUser(formData, this);
     }
-    public void driverArriveAddress(Map<String, String> formData){
-        model.arrivingDestination(formData,this);
+
+    public void driverArriveAddress(Map<String, String> formData) {
+        model.arrivingDestination(formData, this);
     }
 
     @Override
@@ -49,6 +57,11 @@ public class DriverPresenter extends BasePersenter<IDriverView> implements OnDri
     @Override
     public void driverTakeUser(String data) {
         mView.driverTakeUser(data);
+    }
+
+    @Override
+    public void selectUseOrder(List<AroundOrder> data) {
+        mView.selectUseOrder(data);
     }
 
     @Override

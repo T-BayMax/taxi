@@ -31,7 +31,7 @@
                 android:src="@mipmap/amap_man" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/border_20"
@@ -55,12 +55,15 @@
         </LinearLayout>
 
         <EditText
+            android:id="@+id/et_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/aam_item_border"
             android:gravity="left|top"
             android:inputType="textMultiLine"
             android:minLines="10"
+            android:maxLength="140"
+            android:hint="评论内容140字以内"
             android:padding="@dimen/border_20"
             android:textColor="@color/color_66"
             android:textColorHint="@color/color_66"

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:gravity="center"
+
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:paddingBottom="@dimen/border_20">
@@ -15,7 +15,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="@dimen/border_18"
-        android:layout_marginTop="@dimen/border_18"
+        android:layout_marginTop="@dimen/border_30"
         android:text="已接单"
         android:textColor="@color/color_99"
         android:textSize="@dimen/font_26" />
@@ -94,6 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="电话"
+            android:autoLink="phone"
             android:textColor="@color/color_66"
             android:textSize="@dimen/font_28" />
     </LinearLayout>
